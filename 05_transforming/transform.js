@@ -110,7 +110,7 @@ try {
         'Ensure it follows APA style guide and targets an advanced reader. ' +
         'Output in markdown format.\n' +
         '"' + text + '"';
-        
+
     let completion = await getCompletion(prompt8);
 
     let diff = Diff.diffChars(text, completion);
