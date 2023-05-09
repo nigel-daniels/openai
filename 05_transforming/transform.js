@@ -1,5 +1,7 @@
 import { getCompletion } from '../helper.js';
 import fs from 'fs';
+import colors from 'colors';
+import * as Diff from 'diff';
 
 // TRANSFORMING
 // Using transfromation or translation tasks
@@ -27,11 +29,11 @@ try {
     // UNIVERSAL TRANSLATION - Multiple inputs
     /*
     let messages = [
-        "La performance du système est plus lente que d'habitude.",  // System performance is slower than normal
-        "Mi monitor tiene píxeles que no se iluminan.",              // My monitor has pixels that are not lighting
-        "Il mio mouse non funziona",                                 // My mouse is not working
-        "Mój klawisz Ctrl jest zepsuty",                             // My keyboard has a broken control key
-        "我的屏幕在闪烁"                                               // My screen is flashing
+        'La performance du système est plus lente que d'habitude.',  // System performance is slower than normal
+        'Mi monitor tiene píxeles que no se iluminan.',              // My monitor has pixels that are not lighting
+        'Il mio mouse non funziona',                                 // My mouse is not working
+        'Mój klawisz Ctrl jest zepsuty',                             // My keyboard has a broken control key
+        '我的屏幕在闪烁'                                               // My screen is flashing
     ]
 
     for (let message of messages) {
@@ -65,10 +67,63 @@ try {
         'an HTML table with column headers and title:\n' +
         JSON.stringify(data);
 
+    // SPELLING AND GRAMMER ISSUES
+    /*
+    let sentences = [
+        'The girl with the black and white puppies have a ball.',  // The girl has a ball.
+        'Yolanda has her notebook.', // ok
+        'Its going to be a long day. Does the car need it’s oil changed?',  // Homonyms
+        'Their goes my freedom. There going to bring they’re suitcases.',  // Homonyms
+        'Your going to need you’re notebook.',  // Homonyms
+        'That medicine effects my ability to sleep. Have you heard of the butterfly affect?', // Homonyms
+        'This phrase is to cherck chatGPT for speling abilitty'  // spelling
+    ];
 
-    let completion = await getCompletion(prompt6);
+    for (let sentence of sentences) {
+        let prompt_c = 'Proofread and correct the following text ' +
+            'and rewrite the corrected version. If you don\'t find ' +
+            'any errors, just say "No errors found". Don\'t use ' +
+            'any punctuation around the text:\n' +
+            '"""' + sentence + '"""';
 
-    console.log(completion);
+        let correction = await getCompletion(prompt_c);
+        console.log(correction + '\n');
+    };
+    */
+
+
+    // PROOFREADING AND CORRECTING
+    let text = 'Got this for my daughter for her birthday cuz she keeps taking ' +
+        'mine from my room.  Yes, adults also like pandas too.  She takes ' +
+        'it everywhere with her, and it\'s super soft and cute.  One of the ' +
+        'ears is a bit lower than the other, and I don\'t think that was ' +
+        'designed to be asymmetrical. It\'s a bit small for what I paid for it ' +
+        'though. I think there might be other options that are bigger for ' +
+        'the same price.  It arrived a day earlier than expected, so I got ' +
+        'to play with it myself before I gave it to my daughter.';
+
+    let prompt7 = 'proofread and correct this review:\n"' +
+        text + '"';
+
+    // PROOFREAD, CORRECT AND CHANGE TONE
+    let prompt8 = 'Proofread and correct this review. Make it more compelling. ' +
+        'Ensure it follows APA style guide and targets an advanced reader. ' +
+        'Output in markdown format.\n' +
+        '"' + text + '"';
+        
+    let completion = await getCompletion(prompt8);
+
+    let diff = Diff.diffChars(text, completion);
+
+    diff.forEach((part) => {
+        // green for additions, red for deletions
+        // grey for common parts
+        const color = part.added ? 'green' :
+        part.removed ? 'red' : 'grey';
+        process.stderr.write(part.value[color]);
+    });
+
+    console.log();
 } catch (err) {
     console.error(err);
 }
