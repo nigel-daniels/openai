@@ -46,8 +46,6 @@ try {
 
     // MULTIPLE - If we have many reviews to summarize we can iterate and
     //            review them together.
-
-
     let i = 1;
     for (let review of reviews) {
         let prompt5 = 'Your task is to generate a short summary of a ' +
