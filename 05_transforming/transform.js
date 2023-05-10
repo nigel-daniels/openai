@@ -92,7 +92,7 @@ try {
     */
 
 
-    // PROOFREADING AND CORRECTING
+
     let text = 'Got this for my daughter for her birthday cuz she keeps taking ' +
         'mine from my room.  Yes, adults also like pandas too.  She takes ' +
         'it everywhere with her, and it\'s super soft and cute.  One of the ' +
@@ -102,16 +102,12 @@ try {
         'the same price.  It arrived a day earlier than expected, so I got ' +
         'to play with it myself before I gave it to my daughter.';
 
+    // PROOFREADING AND CORRECTING
+    /*
     let prompt7 = 'proofread and correct this review:\n"' +
         text + '"';
 
-    // PROOFREAD, CORRECT AND CHANGE TONE
-    let prompt8 = 'Proofread and correct this review. Make it more compelling. ' +
-        'Ensure it follows APA style guide and targets an advanced reader. ' +
-        'Output in markdown format.\n' +
-        '"' + text + '"';
-
-    let completion = await getCompletion(prompt8);
+    let completion = await getCompletion(prompt7);
 
     let diff = Diff.diffChars(text, completion);
 
@@ -122,8 +118,17 @@ try {
         part.removed ? 'red' : 'grey';
         process.stderr.write(part.value[color]);
     });
+    */
 
-    console.log();
+
+    // PROOFREAD, CORRECT AND CHANGE TONE
+    let prompt8 = 'Proofread and correct this review. Make it more compelling. ' +
+        'Ensure it follows APA style guide and targets an advanced reader. ' +
+        'Output in markdown format.\n' +
+        '"' + text + '"';
+
+    let completion = await getCompletion(prompt8);
+    console.log(completion);
 } catch (err) {
     console.error(err);
 }
