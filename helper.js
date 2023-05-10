@@ -7,13 +7,13 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-async function getCompletion(prompt, model = 'gpt-3.5-turbo') {
+async function getCompletion(prompt, model = 'gpt-3.5-turbo', temperature = 0 ) {
     const messages = [{role: 'user', content: prompt}];
 
     const completion = await openai.createChatCompletion({
         model: model,
         messages: messages,
-        temperature: 0       // The degree of randomness in the output
+        temperature: temperature       // The degree of randomness in the output
     });
 
     return completion.data.choices[0].message.content;
