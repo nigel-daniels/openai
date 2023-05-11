@@ -67,7 +67,7 @@ let prompt6 = 'Translate the following JSON to ' +
     JSON.stringify(data);
 
 // SPELLING AND GRAMMER ISSUES
-/*
+
 let sentences = [
     'The girl with the black and white puppies have a ball.',  // The girl has a ball.
     'Yolanda has her notebook.', // ok
@@ -78,17 +78,20 @@ let sentences = [
     'This phrase is to cherck chatGPT for speling abilitty'  // spelling
 ];
 
+let i = 1;
+
 for (let sentence of sentences) {
-    let prompt_c = 'Proofread and correct the following text ' +
+    let prompt_c = 'Proofread and correct the text in the braces' +
         'and rewrite the corrected version. If you don\'t find ' +
         'any errors, just say "No errors found". Don\'t use ' +
-        'any punctuation around the text:\n' +
-        '"""' + sentence + '"""';
+        'any punctuation or quotes around the output text:\n' +
+        '{' + sentence + '}';
 
     let correction = await getCompletion(prompt_c);
-    console.log(correction + '\n');
+    console.log(i + ' ' + correction + '\n');
+    i++;
 };
-*/
+
 
 
 
@@ -126,5 +129,5 @@ let prompt8 = 'Proofread and correct this review. Make it more compelling. ' +
     'Output in markdown format.\n' +
     '"' + text + '"';
 
-let completion = await getCompletion(prompt8);
-console.log(completion);
+//let completion = await getCompletion(prompt8);
+//console.log(completion);
